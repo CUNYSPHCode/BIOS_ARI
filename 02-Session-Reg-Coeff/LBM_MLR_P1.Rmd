@@ -1,0 +1,179 @@
+---
+title: "Applied Biostatistics 1 Introduction"
+subtitle: "Multiple Linear Regression: Basic Model; Focus on Partial Regression Coefficient"
+author: "CUNY Graduate School of Public Health and Health Policy"
+output: ioslides_presentation
+---
+
+<!--
+Today, we study about the basic model of multiple linear regression.
+-->
+
+## Learning Objective
+
+To understand how to interpret the partial regression coefficient.
+
+<!--
+Our focus will be on the partial regression coefficient. So, the primary
+learning objective of this session is to understand how to interpret the
+partial regression coefficient.
+-->
+
+## Outline
+
+1. Multiple Linear Regression Model
+2. Control of Confounding Factors
+3. Example A: H&G paper
+4. Example B: Software Exercise
+
+<!--
+The topics of this lecture will be discussed in this order. We will first study
+basics of the multiple linear regression model. Then, special attention is
+given to issues related to control of confounding factors, and finally we will
+go through some examples of linear regression results.
+-->
+
+## Basic Model of Multiple Linear Regression
+
+
+Multiple linear regression is linear regression analysis with more than one
+independent variable (more than one X).
+
+Why more than one X?
+
+* Accuracy of prediction (see Example 1)
+* Control of confounding (see Example 2)
+
+<!--
+In the last session, we reviewed simple linear regression, which is linear
+regression with one independent variable. In this session, we start to study
+multiple linear regression, which is linear regression analysis with more than
+one independent variable.  Why do we sometimes want to use more than one
+independent variable? There are two major reasons. First, it may raise the
+accuracy level of prediction. Second, it may help to control confounding in
+relationships among variables.
+-->
+
+## Example 1: Prediction of Death Rates for French Males (drmfrench)
+
+<div class="columns-2">
+**Model 1**: $Y = \alpha + \beta_{1}X_{1} + \varepsilon$
+
+$\hat{Y} = \alpha + \beta_{1}X_{1}$
+
+$Y = -9.721 + 0.092X_{1} + \varepsilon$
+
+
+
+**Model 2**: $Y = \alpha + \beta_{1}X_{1} + \beta_{2}X_{2} + \varepsilon$
+
+$\hat{Y} = \alpha + \beta_{1}X_{1} + \beta_{2}X_{2}$
+
+$Y = 24.683 + 0.092X_{1} - 0.017X_{2} + \varepsilon$
+
+</div>
+
+<br>
+$Y$: log age-specific death rate
+
+$X_{1}$: age (60, 61, ..., 90)
+
+$X_{2}$: year (1960, 1965, ..., 2005)
+
+<!--
+Let's talk about accuracy, with an example showing how an additional
+independent variable helps to improve the accuracy of prediction using linear
+regression. In this example, we want to predict [age-specific death rates] for
+French males from age at death, and year of death, using the data that we used
+for the software examples in the last session.  In these equations, Y is the
+logarithm of age-specific death rate, X1 is age, ranging from 60 to 90, and X2
+is calendar year, ranging from 1960 to 2005, in five year intervals such as
+1960, 1965, 1970, etc., up to 2005. Y hat is the logarithm of predicted
+age-specific death rate, whereas Y is the logarithm of observed age-specific
+death rate. Epsilon is the difference between Y and Y hat. Alpha, beta one, and
+beta two, are parameters of the regression models. Alpha is called the
+constant, and beta is called the regression coefficient. Beta is called the
+partial regression coefficient, if there are more than one independent
+variable, that is more than one X. So, beta-1 and beta-2 in model two, are
+partial regression coefficients.  First, I set up a regression model for
+predicting the log death rate from age, by using simple linear regression,
+which is model1.  The regression analysis produced estimated values of alpha
+and beta. With those estimated values,  now model one is set up as: Y equals
+-9.721, + 0.092 times x1, which is age, and plus epsilon.  Then I set up a
+regression equation for predicting the log death rate from age and year. The
+equation is model 2 here.  The regression analysis estimated model 2, as Y
+equals 24.683, plus 0.092 times x1, which is age, plus -0.017 times x2, which
+is year, and plus epsilon.
+-->
+
+## Model 1
+
+$\hat{Y} = -9.721 + 0.092X_{1}$
+
+```{r,echo=FALSE}
+drmfrench <- read.csv("../data/DRfrenchM.csv")
+par(mfrow = c(1, 2))
+with(drmfrench, plot(Age, ln.Death.Rate,
+    xlab = bquote("Age (" ~ X[1] ~ ")"), ylab = "ln.Death.Rate ( Y )")
+)
+fit1 <- lm(ln.Death.Rate ~ Age, data = drmfrench)
+drmfrench$fit1s <- fitted(fit1)
+with(drmfrench, plot(fit1s, ln.Death.Rate,
+    xlab = bquote("Unstd. Predicted Value (" ~ hat(Y) ~ ")"),
+    ylab = "ln.Death.Rate ( Y )")
+)
+abline(lm(ln.Death.Rate ~ fit1s, data = drmfrench), lwd = 3, col = "red")
+```
+<!--
+These graphs show how accurately model one predicted log death rates. The left
+panel is a plot of log death rate by age. The right panel is a plot of Y,
+observed log death rate, by Y hat, predicted log death rate. On the red line,
+the value of Y and the value of Y hat are equal. If all points are exactly on
+the red line, the prediction is 100% accurate.  Note the left and right panels
+show exactly the same pattern. Why the same?  It is because in the model, Y hat
+is a function of age X1. In the model, Y hat is solely determined by X1. So the
+relation between X1 and Y is exactly the same as the relation between Y-hat and
+Y.  Anyway, the graph in the right panel shows how closely the observed values
+and the predicted values match. In the right panel, circles scatter quite
+narrowly around the red line. This suggests that model one predicted the log
+death rate from age, quite accurately.
+-->
+
+## Comparing model fits
+
+<div class="columns-2">
+$\hat{Y} = -9.721 + 0.092X_{1}$
+
+<br>
+
+$\hat{Y} = 24.683 + 0.092X_{1} - 0.017X_{2}$
+</div>
+
+```{r,echo=FALSE}
+par(mfrow = c(1, 2))
+with(drmfrench, plot(fitted(fit1), ln.Death.Rate,
+    xlab = bquote("Unstd. Predicted Value (" ~ hat(Y) ~ ")"),
+    ylab = "ln.Death.Rate ( Y )", main = "Model 1")
+)
+abline(lm(ln.Death.Rate ~ fit1s, data = drmfrench), lwd = 3, col = "red")
+fit2 <- lm(ln.Death.Rate ~ Age + Year, data = drmfrench)
+drmfrench$fits2 <- fitted(fit2)
+with(drmfrench, plot(fits2, ln.Death.Rate,
+    xlab = bquote("Unstd. Predicted Value (" ~ hat(Y) ~ ")"),
+    ylab = "ln.Death.Rate ( Y )", main = "Model 2")
+)
+abline(lm(ln.Death.Rate ~ fits2, data = drmfrench), lwd = 3, col = "red")
+```
+<!--
+In this slide, the left panel is a copy of the right panel in the previous
+slide. The right panel is a plot of Y by Y-hat, predicted not just from age,
+but from age and year together. In the left panel, circles scatter quite
+narrowly around the red line, but in the right panel, all of the circles are
+very close to the red line, which means, for each of those points,  the value
+of Y and the value of Y-hat are almost the same.  By comparing the results of
+Model 1 in the left panel, and those of Model 2 in the right panel, we notice
+that, by using not only information on age but also information on time, model
+two has notably improved the accuracy of prediction, in comparison with model
+one, which used information on age only.
+-->
+
