@@ -1,0 +1,117 @@
+---
+title: "Applied Biostatistics 1 Introduction (Pt. 2)"
+author: "CUNY Graduate School of Public Health and Health Policy"
+output: ioslides_presentation
+---
+
+## Applied Biostatistics I
+
+Introduction
+
+## Major Course Topic: Introductory Multivariate Analysis
+
+* One variable
+    * (e.g., mean, SD, etc. of blood pressure)
+* Relation between two variables
+    * (e.g., blood pressure and age)
+* Relation among three or more variables
+    * (e.g., blood pressure and age, controlling for some other variables)
+
+
+## Multivariate Analysis: Type 1
+
+Typical purpose: to summarize associations among many variables
+
+X1 <-> X2 <-> X3 <---> Xn
+
+Principal component analysis
+Factor analysis
+Multidimensional scaling
+Latent structure analysis
+Grade of membership (GoM)
+Cluster analysis (of variables)
+Hayashi’s quantification III
+
+
+
+## Multivariate Analysis: Type 2
+
+Typical purpose
+
+1. development of prediction models;
+2. examination of hypotheses on causal relationships
+
+```
+        <---  X1
+     <------  X2
+Y  <--------  X3
+     <------  …
+        <---  Xn
+```
+
+Regression (various types)
+Discriminant function
+MANCOVA
+
+## Independent variables
+
+Independent variables:
+
+* Life style & behavior
+    - (e.g., smoking, alcohol consumption,  exercise, diet)
+* Demographic and socio-economic
+    - (e.g., age, gender, race/ethnicity, region, income, education,
+occupation, marital status)
+* Physiological
+    - (e.g., BMI, cholesterol, blood pressure)
+
+    |
+    v
+
+* Dependent variable
+    - (e.g., biomarker, disease, disability,  mortality)
+
+## Type of the Dependent Variable
+
+1. Numerical - Continuous
+    - (Simple or Multiple) linear regression,
+    - Nonlinear regression,
+    - Nonparametric regression (GAM),
+    - MARS
+2. Numerical – Discrete (Non-negative Integer)
+    - Poisson regression, negative binomial regression
+3. Categorical – Dichotomous
+    - Dichotomous (binomial) logistic regression
+    - PROBIT, complementary log-log, discriminant function
+4. Categorical – Polytomous
+    - Polytomous (multinomial) logistic regression
+5. Time to event
+    - Survival analysis including Cox regression
+
+## Terminology
+
+Y <- X1, X2, X3, …
+
+X1, X2, X3, …: *Independent variables*, explanatory variables, covariates,
+predictors, regressors, factors
+
+Y: *Dependent variable*, response variable, outcome variable, …
+
+y <- f(x1, x2, ...)
+
+## Notations
+
+Subscripts
+
+$X_{i}$  $X_{1} , X_{2}, X_{3}$
+
+$X_{j}$  $X_{1} , X_{2}, X_{3}$
+
+$X_{ij}$ $X_{23}$
+
+$X_{ij}$  i-th individual, j-th variable
+
+Summation
+
+$$\sum_{i = 1}^{n} = X_{1}, X_{2}, X_{3}, \dots, X_{n} $$
+

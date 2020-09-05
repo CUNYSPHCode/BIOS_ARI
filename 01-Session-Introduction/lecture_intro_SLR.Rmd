@@ -1,0 +1,93 @@
+---
+title: "Applied Biostatistics 1 Introduction"
+author: "CUNY Graduate School of Public Health and Health Policy"
+output: ioslides_presentation
+---
+
+## Applied Biostatistics I
+
+Review of Simple Linear Regresssion
+
+## Example: blood pressure and aging
+
+Hypothesis: age-related physiological changes (narrowing and hardening) of
+blood vessels tend to raise blood pressure.
+
+In order to investigate the hypothesis, what would you do first? (With data on
+age and blood pressure.)
+
+## Systolic Blood Pressure by Age
+
+* Using a subsample of NHANES 2009-2010 (in the `NHANES` R package)
+
+```{r,echo=FALSE}
+library(NHANES)
+data(NHANES)
+miniH <- NHANES[NHANES$SurveyYr == "2009_10", c("Age", "BPSysAve")]
+miniH <- miniH[miniH$Age >= 18 & complete.cases(miniH), ]
+plot(miniH)
+```
+
+## Local Averaging
+
+* Mean SBP for the 20s, 30s, 40s, ...
+
+```{r,echo=FALSE}
+plot(miniH)
+lines(
+    gplots::wapply(
+        miniH$Age, miniH$BPSysAve, method = "width", width = 10, n = 10),
+    col = "red", lwd = 3)
+```
+
+## Linear Regression
+
+We fit a straight line to the points on the scatter plot – summarize
+data (identify a typical pattern) using a simple mathematical form.
+
+## Systolic Blood Pressure by Age
+
+```{r,echo=FALSE}
+plot(miniH)
+abline(lm(BPSysAve ~ Age, data = miniH), col = "red", lwd = 3)
+```
+
+## What is the mathematical expression for straight line? {.small}
+
+```{r,echo = FALSE}
+plot(BPSysAve ~ Age, data = miniH, type = "n", xlab = "X", ylab = "Y",
+    xlim = c(-1, 75), ylim = c(100, 130), main = "Age by SBP")
+fit1 <- lm(BPSysAve ~ Age, data = miniH)
+abline(fit1)
+segments(x0 = 40, x1 = 60, y0 = 117.6449, y1 = 117.6449, lty = "dashed")
+segments(x0 = 60, x1 = 60, y0 = 117.6449, y1 = 125.5157, lty = "dashed")
+text(50, 115, labels = "20")
+text(62, 121, labels = as.character(round(125.5157 - 117.6449, 1)))
+text(45, 105, labels = "7.9 (rise) / 20 (run) ~= .359 (B)")
+points(x = 0, y = 101.9032, pch = 18, col = "red")
+segments(x0 = 1.5, x1 = 5, y0 = 101.9032, y1 = 101.9032)
+text(5.5, 101.9032, labels = "Intercept (A)", pos = 4)
+text(10, 125, labels = "Y = A + BX", cex = 2)
+```
+
+## Estimated regression model {.small}
+
+$\hat{Y} = 101.9 + 0.393 X$
+
+When age is 0, SBP is extrapolated to 101.9.
+
+Slope: 0.393. On average, a difference in SBP by 0.393 mmHg corresponds to a
+one-year difference in age
+
+Predicted SBP for someone aged 45:
+
+101.9 + 0.393 x **45** = 119.6
+
+What is the predicted difference in SBP for two persons whose ages are 30 years
+apart? (e.g., age 70 vs age 40)
+
+Short way: 0.393 x **30** = 11.79
+
+Long way: (101.9 + 0.393 x **70**) – (101.9 + 0.393 x **40**) =
+129.45 - 117.64 = 11.8
+
