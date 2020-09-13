@@ -3,4 +3,5 @@
 *.srt
 *.mp4
 .Rhistory
+*.Rproj
 Slide*.PNG
