@@ -5,45 +5,39 @@ output: ioslides_presentation
 ---
 
 <!--
-Let's start to study applied biostatistics.
+Welcome to applied biostatistics one.
 -->
 
 ## Applied Biostatistics I
 
-Introduction
-
+* Introduction
 
 <!--
-In this session, I will go through all the overall features of this course, and
-then talk about some general issues of multivariate statistical analysis.
+This course was created using the 'ari' R package and Amazon Polly.
+-->
+
+## Course Orientation
+
+* Features of this course
+    * Multivariate Statistical Analysis
+    * General issues
+
+<!--
+ In this session, I will describe the overall features of this course including
+multivariate statistical analysis and then discuss some general issues thereof.
 -->
 
 ## Outline
 
-Course Orientation
-Introduction to Multivariate Statistical Analysis
+* Introduction to Multivariate Statistical Analysis
+    * Multiple linear regression
+    * Logistic regression
 
 <!--
-In this course, we study multiple linear regression and logistic regression,
+We will study multiple linear regression and logistic regression,
 and some related issues. The overall schedule is, we study multiple linear
 regression in the first half of this course, and logistic regression in the
 second half.
--->
-
-## Major Topics
-
-1. Course Orientation
-
-Multiple linear regression
-
-Logistic regression
-
-<!--
-As a course in statistics, this course is application oriented. We will focus
-on how to use the statistical methods that we learn, and how to interpret
-results of the statistical analysis, rather than mathematical theories
-underlying those methods. We will also place emphasis on how to use computers
-effectively when we carry out those statistical analyses.
 -->
 
 ## Course characteristics
@@ -53,15 +47,12 @@ effectively when we carry out those statistical analyses.
 * Will analyze widely used publicly-available health data (NHANES, BRFSS, HMD…)
 * Will not put strong emphasis on mathematical theories (proofs, derivations)
 
-
 <!--
-You are supposed to have taken a course in introductory statistics or
-biostatistics, and have general understanding of these basic statistical
-concepts and tools. But you don't have to be able to remember their formulas
-exactly. No background in advanced mathematics, such as calculus and matrix
-algebra or linear algebra, is required. Basics of the exponential function and
-logistic function that you studied in your high school algebra course, will be
-used in the second half of this course.
+As a course in statistics, this course is application oriented. We will focus
+on how to use the statistical methods that we learn, and how to interpret
+results of the statistical analysis, rather than mathematical theories
+underlying those methods. We will also place emphasis on how to use software
+effectively when we carry out those statistical analyses.
 -->
 
 ## Required Statistical Background
@@ -75,19 +66,14 @@ used in the second half of this course.
 * No calculus or matrix algebra required
 * The exponential and logistic function in the second half (very basic treatment)
 
-
 <!--
-These days, computers are used heavily in statistical analysis. Computer
-software used in statistical analysis may be classified into these four groups.
-User-friendly statistical software packages such as SPSS, sass and Stata are
-widely used. More technically oriented users may prefer to use programming
-oriented statistical software or computational software such as R, Matlab, and
-Gauss. Originally, statisticians did statistical analyses using programming
-languages such as Fortran. In addition, these days, spreadsheets are equipped
-with more statistical functions, so quite a few statistical analyses can be
-done using a spreadsheet such as Excel, which also produces good graphics. In
-this course, we will use sass, which is widely used in public health research.
-We will also use Excel, which can effectively complement sass.
+You are supposed to have taken a course in introductory statistics or
+biostatistics, and have general understanding of these basic statistical
+concepts and tools. But you don't have to be able to remember their formulas
+exactly. No background in advanced mathematics, such as calculus and matrix
+algebra or linear algebra, is required. Basics of the exponential function and
+logistic function that you studied in your high school algebra course, will be
+used in the second half of this course.
 -->
 
 ## Widely Used Software for Statistical Analysis
@@ -98,44 +84,61 @@ We will also use Excel, which can effectively complement sass.
 * Spreadsheets including Excel
 
 <!--
-Full licensed sass is available on all public computer workstations at SPH,
-such as those in classrooms and student rounges. There are several options for
-running sass at home. First, the school has sass available for student use, and
-you can install it on your PC, which is strongly recommended.  Second, you can
-purchase a full license of sass for your PC. But, for most of you, it is
-probably unnecessary to buy one, because now you can install sass, or have it
-installed, on your PC, free of charge.  Third, CUNY has sass in virtual
-desktop, to which you have remote access through your computer, so you can run
-sass from home.  Lastly, sass has free online services such as sass University
-edition and sass on demand, through which you can have free remote access to
-sass. But sass available through these services may be slightly different from
-the full licensed sass. Sass University edition and sass on demand are not
-supported in this course. That is, we do not provide help in running sass
-through these remote access services.
+These days, computers are used heavily in statistical analysis. Computer
+software used in statistical analysis may be classified into roughly four
+groups. User-friendly statistical software packages such as SPSS, sass and
+Stata are widely used. More technically oriented users may prefer to use
+programming oriented statistical software or computational software such as R,
+Matlab, and Gauss. Originally, statisticians did statistical analyses using
+programming languages such as Fortran. In addition, these days, spreadsheets
+are equipped with more statistical functions, so quite a few statistical
+analyses can be done using a spreadsheet such as Excel, which also produces
+minimal graphics. In this course, we will be exposed to three softwares, R,
+sass, SPSS, which are widely used in public health research. We will
+occasionally use Excel to complement sass.
 -->
 
-## SAS access
+## Software access
 
-Options for running SAS at home:
+R
 
-* Install SPH-licensed SAS
-* Purchase a full license of SAS (A full-licensed SAS is used at SPH)
-* Use CUNY Virtual Desktop
-* Other means of free remote access to SAS
-    * SAS University Edition (SAS Studio)
+* [R statistical software](https://cran.r-project.org/)
+* [RStudio user interface](https://rstudio.com/products/rstudio/download/)
+
+Running SAS / SPSS at home:
+
+* Use the [CUNY Virtual Desktop](https://www.cuny.edu/about/administration/offices/cis/virtual-desktop/)
+* Obtain a SAS or SPSS license from SPH
+* Install SAS University Edition (SAS Studio)
 
 <!--
-There are two ways to use sass. First, you start sass, open sass menus, make
-choices from the menus and interactive windows, and execute them. Second, you
-write sass programs by yourself, and submit them to sass for execution.
-Emphasis of this course is placed on writing sass programs, because having SAS
-skills and experiences usually means being able to write sass programs.
+By far, the easiest software to use and install is R because it is free and
+open source software. The R Project and R Studio websites will allow you to
+obtain the programming language and the graphical user interface, respectively.
+Students looking to use sass or SPSS from home have several options.
+You can use the CUNY Virtual Desktop where remote desktop software installation
+is required to obtain access.  SPH should have sass and/or SPSS licenses for
+student use that allow you to install the software directly onto your PC.
+Lastly, sass provides sass university edition for free which requires a bit
+more software installation. Currently the sass university edition is
+recommended for student use because there are no delays in obtaining the
+software and the installation time is shorter than the full installation of
+sass.
 -->
 
-## SAS operation
+## Typical software use
 
 1) Point-and-Click
-2) Write SAS programs (codes, scripts)
+2) Write R scripts, SAS programs, SPSS syntax
 
-Emphasis of this course is on 2.
+Emphasis of this course is on _2_
+
+<!--
+There are typically two ways to interface with software. One way is to have the
+user look through menus and make choices from the menus and interactive
+windows. The second way is to write commands and execute the operations.
+Emphasis of this course is placed on writing software syntax or programs
+because skill and experience translates to being able to create reproducible
+analyses and workflows.
+-->
 

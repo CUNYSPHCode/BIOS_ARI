@@ -4,9 +4,10 @@ author: "CUNY Graduate School of Public Health and Health Policy"
 output: ioslides_presentation
 ---
 
-## Applied Biostatistics I
-
-Introduction
+<!--
+Multiple linear regression and logistic regression are methods of multivariate
+analysis.
+-->
 
 ## Major Course Topic: Introductory Multivariate Analysis
 
@@ -17,22 +18,51 @@ Introduction
 * Relation among three or more variables
     * (e.g., blood pressure and age, controlling for some other variables)
 
+<!--
+There are many ways to classify methods of statistical analysis. One way is by
+the number of variables. Suppose that we are interested in blood pressure, and
+have data on systolic blood pressure and some other characteristics for
+residents of our community. First, we may want to look at the mean, median,
+standard deviation, highest value, lowest value, and so on, of systolic blood
+pressure for residents of the community. Each of these statistical computations
+uses just one variable, systolic blood pressure.  Then we may want to
+investigate relationship between systolic blood pressure and some other
+variable. For example, we may be interested in relation between systolic blood
+pressure and age, and compute their correlation coefficient.  Then we may
+proceed and investigate relationships among three or more variables including
+systolic blood pressure. For example, both systolic blood pressure and age may
+be related to some other variables, which may have some effect on correlation
+between systolic blood pressure and age. In that case, we may want to look at
+the relation between blood pressure and age, controlling for those variables.
+Statistical analysis of relationships among three or more variables is called
+multivariate analysis.
+-->
 
-## Multivariate Analysis: Type 1
+## Multivariate Analysis: Type 1 {.small}
 
 Typical purpose: to summarize associations among many variables
 
-X1 <-> X2 <-> X3 <---> Xn
+$X_{1}$ <-> $X_{2}$ <-> $X_{3}$ <$\dots$> $X_{n}$
 
-Principal component analysis
-Factor analysis
-Multidimensional scaling
-Latent structure analysis
-Grade of membership (GoM)
-Cluster analysis (of variables)
-Hayashi’s quantification III
+* Principal component analysis
+* Factor analysis
+* Multidimensional scaling
+* Latent structure analysis
+* Grade of membership (GoM)
+* Cluster analysis (of variables)
+* Hayashi’s quantification III
 
-
+<!--
+Many methods of multivariate analysis may possibly be classified into two
+groups. Some methods are useful in summarizing associations among many
+variables, shown in this diagram as X1, X2, X3, and so on. Suppose we are
+interested in interrelationships among 20 variables. If we compute the
+correlation coefficient for each pair of these variables, we need to look at
+190 correlation coefficients, one after another. But, these methods listed here
+help us to effectively summarize relationships among many variables into
+several patterns. This type of methods are heavily used in such fields as
+psychology and education.
+-->
 
 ## Multivariate Analysis: Type 2
 
@@ -41,21 +71,27 @@ Typical purpose
 1. development of prediction models;
 2. examination of hypotheses on causal relationships
 
-```
-        <---  X1
-     <------  X2
-Y  <--------  X3
-     <------  …
-        <---  Xn
-```
+![](BIOS620_Intro1_p2.png)
 
-Regression (various types)
-Discriminant function
-MANCOVA
+Regression (various types), Discriminant function, MANCOVA
+
+<!--
+Methods in the second group are useful when we are
+interested in many variables with special focus on one of them, denoted here as
+Y.  We may want to investigate relationships of this Y to the other variables,
+denoted here as X1, X2, X3, and so on, considering relationships among those
+Xs. In some cases, these methods are used for predicting Y from Xs, and in
+other cases, they are used for examination of hypotheses on causal
+relationships. Various types of regression analysis and some other methods
+belong to this group. This type of methods are heavily used in public health
+research, which usually focus on a particular disease or a particular health
+problem.  Y is called the dependent variable, and Xs are called independent
+variables.
+-->
 
 ## Independent variables
 
-Independent variables:
+**Independent variables**:
 
 * Life style & behavior
     - (e.g., smoking, alcohol consumption,  exercise, diet)
@@ -65,13 +101,23 @@ occupation, marital status)
 * Physiological
     - (e.g., BMI, cholesterol, blood pressure)
 
-    |
-    v
+**Dependent variable**:
 
-* Dependent variable
+* Hard outcomes
     - (e.g., biomarker, disease, disability,  mortality)
 
-## Type of the Dependent Variable
+<!--
+In public health research, typical dependent variables include biomarkers,
+whether the person has the disease of our interest or not, if the person has
+some type of disability, and if the person died in a certain period of time. We
+often investigate how the dependent variable is related to lifestyle and
+behavioral characteristics, demographic and socio- economic characteristics,
+and physiological characteristics. Physiological variables can be the dependent
+variable, but they also can be considered as determinants of disease,
+disability, or mortality.
+-->
+
+## Type of the Dependent Variable {.smaller}
 
 1. Numerical - Continuous
     - (Simple or Multiple) linear regression,
@@ -88,20 +134,58 @@ occupation, marital status)
 5. Time to event
     - Survival analysis including Cox regression
 
+<!--
+Variables used in statistical analysis have different formats, and different
+methods of regression analysis have been developed for dependent variables of
+different formats. First, variables such as blood pressure and BMI are
+numerical and continuous, because their values are numbers that can be
+considered continuous.  Second, values of some variable are just counts. For
+example, the number of diarrheal episodes that a patient of some digestive
+disease experienced on the particular day is a count. The value can be a
+positive integer or zero, but the numerical value cannot be considered
+continuous, as there is no such a thing as having diarrhea 3.64 times. This
+type of variable is numerical and discrete.  Third, some variables are not
+numerical, but are composed of two or more categories. For example, a person
+may be diagnosed as having a cancer, or not. In this case, the variable has two
+categories, and thus called dichotomous.  Fourth, some variables have three or
+more categories. For example, a person may have diabetes, or prediabetes, or
+neither of them. This categorical variable is polytomous.  Finally, although
+time is a continuous numerical variable, time has some special characteristics,
+so some methods have been developed for analyzing data on time.  Different
+types of regression analysis have been developed for dependent variables of
+different formats. Linear regression is for a numerical continuous dependent
+variable, and logistic regression is for a categorical dependent variable.
+-->
+
 ## Terminology
 
-Y <- X1, X2, X3, …
+$Y = X_{1}, X_{2}, X_{3}, \dots$
 
-X1, X2, X3, …: *Independent variables*, explanatory variables, covariates,
+$X_{1}, X_{2}, X_{3}, \dots$: *Independent variables*, explanatory variables, covariates,
 predictors, regressors, factors
 
-Y: *Dependent variable*, response variable, outcome variable, …
+$Y$: *Dependent variable*, response variable, outcome variable, …
 
-y <- f(x1, x2, ...)
+$y = f(x_{1}, x_{2}, \dots )$
+
+<!--
+Regression analysis is used for analyzing relationships of one or more
+variables, denoted here as X1, X2, X3, and so on, to the variable of our
+interest, denoted as Y.  In different papers and books, these Xs are called
+independent variables, explanatory variables, covariates, predictors,
+regressors, or factors. Meanings of these terms are essentially the same, with
+slightly different nuances. Y may be called dependent variable, response
+variable, outcome variable, and so on, with similar meanings and slightly
+different nuances. In this course, we use independent variables and dependent
+variable, because these names are relatively neutral, without special nuances.
+These two names are based on mathematics of functional relationships, in which
+the value of the dependent variable is determined by values of the independent
+variables.
+-->
 
 ## Notations
 
-Subscripts
+**Subscripts**
 
 $X_{i}$  $X_{1} , X_{2}, X_{3}$
 
@@ -111,7 +195,23 @@ $X_{ij}$ $X_{23}$
 
 $X_{ij}$  i-th individual, j-th variable
 
-Summation
+**Summation**
 
 $$\sum_{i = 1}^{n} = X_{1}, X_{2}, X_{3}, \dots, X_{n} $$
+
+<!--
+In notations used in this course, subscripts are important. Conventionally X
+sub I indicates the value of the variable for the I-th individual. X sub J
+indicates the value of the J-th variable. If there are two subscripts such as X
+sub 2 and 3, it usually means the value of the second individual for the third
+variable. Although this course does not use many mathematical symbols, the
+summation symbol may be used frequently.
+-->
+
+## Next topic
+
+* Simple linear regression
+<!--
+In the next lecture, we will review simple linear regression.
+-->
 

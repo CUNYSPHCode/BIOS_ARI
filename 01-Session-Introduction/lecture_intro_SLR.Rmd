@@ -1,14 +1,18 @@
 ---
 title: "Applied Biostatistics 1 Introduction"
+subtitle: "Review of Simple Linear Regression"
 author: "CUNY Graduate School of Public Health and Health Policy"
 output: ioslides_presentation
 ---
 
-## Applied Biostatistics I
+<!--
+Welcome to part three of the lecture. I believe students in this class
+previously studied the linear regression with one independent variable, which
+is called simple linear regression, in an introductory statistics course. So
+let’s go through a brief review of simple linear regression.
+-->
 
-Review of Simple Linear Regresssion
-
-## Example: blood pressure and aging
+## Systolic Blood Pressure (SBP) and aging
 
 Hypothesis: age-related physiological changes (narrowing and hardening) of
 blood vessels tend to raise blood pressure.
@@ -16,9 +20,18 @@ blood vessels tend to raise blood pressure.
 In order to investigate the hypothesis, what would you do first? (With data on
 age and blood pressure.)
 
+<!--
+Let’s start with an example. Suppose we hypothesize that age-related
+physiological changes of blood vessels tend to raise blood pressure, because of
+age-related narrowing and hardening of blood vessels. Actually, this may be a
+well-established fact rather than a hypothesis. Anyway, the question is, in
+order to investigate the hypothesis, what would you do first if you have data
+on age and blood pressure?
+-->
+
 ## Systolic Blood Pressure by Age
 
-* Using a subsample of NHANES 2009-2010 (in the `NHANES` R package)
+* Using NHANES data from 2009-2010 in the `NHANES` R package
 
 ```{r,echo=FALSE}
 library(NHANES)
@@ -28,6 +41,17 @@ miniH <- miniH[miniH$Age >= 18 & complete.cases(miniH), ]
 plot(miniH)
 ```
 
+<!--
+In such a case, a typical way to start data analysis is to plot systolic blood
+pressure against age, as shown in this figure. Here, the horizontal axis is age
+from 18 to 80, and the vertical axis is systolic blood pressure, ranging from
+78 to 226. The points are scattered widely. The majority of the points appear
+to be in a broad band that goes upward diagonally from left to right,
+suggesting a tendency for systolic blood pressure to be higher at older adult
+ages. But it is a visual impression I had. Since the points are quite widely
+scattered, I am not very confident about my visual impression.
+-->
+
 ## Local Averaging
 
 * Mean SBP for the 20s, 30s, 40s, ...
@@ -36,14 +60,33 @@ plot(miniH)
 plot(miniH)
 lines(
     gplots::wapply(
-        miniH$Age, miniH$BPSysAve, method = "width", width = 10, n = 10),
-    col = "red", lwd = 3)
+        miniH$Age, miniH$BPSysAve, method = "width", width = 7, n = 7
+    ),
+    col = "red", lwd = 3
+)
 ```
+
+<!--
+Then the next step may be local averaging. In this figure, the red broken line
+was drawn by linking seven points, each of which indicates the mean value of
+systolic blood pressure for a 10 year age group. The left end of the red line
+indicates that the average systolic blood pressure for those in the 20s is
+between 112 and 113, and then the average blood pressure tends to increase with
+age up to about 137 for the age group 70 to 80. The red line may appear quite
+flat but it is mainly because the vertical axis ranges very widely from 78 to
+226, because there are a few outliers whose blood pressure are above 200.
+-->
 
 ## Linear Regression
 
 We fit a straight line to the points on the scatter plot – summarize
 data (identify a typical pattern) using a simple mathematical form.
+
+<!--
+Actually, the key concept of simple linear regression is that we fit a straight
+line to the points in a scatterplot. By doing so, we summarize the data, or
+identify a typical pattern in the data, using a simple mathematical form.
+-->
 
 ## Systolic Blood Pressure by Age
 
@@ -51,6 +94,14 @@ data (identify a typical pattern) using a simple mathematical form.
 plot(miniH)
 abline(lm(BPSysAve ~ Age, data = miniH), col = "red", lwd = 3)
 ```
+
+<!--
+This is a straight line that was fitted to the data points using linear
+regression. The straight-line goes upward from left to right suggesting that
+although the points around the straight line are scattered, the typical pattern
+is a rise of systolic blood pressure with age, so this regression result seems
+to be consistent with the hypothesis.
+-->
 
 ## What is the mathematical expression for straight line? {.small}
 
@@ -63,14 +114,26 @@ segments(x0 = 40, x1 = 60, y0 = 117.6449, y1 = 117.6449, lty = "dashed")
 segments(x0 = 60, x1 = 60, y0 = 117.6449, y1 = 125.5157, lty = "dashed")
 text(50, 115, labels = "20")
 text(62, 121, labels = as.character(round(125.5157 - 117.6449, 1)))
-text(45, 105, labels = "7.9 (rise) / 20 (run) ~= .359 (B)")
+text(45, 105, labels = "7.9 (rise) / 20 (run) ~= .395 (B)")
 points(x = 0, y = 101.9032, pch = 18, col = "red")
 segments(x0 = 1.5, x1 = 5, y0 = 101.9032, y1 = 101.9032)
 text(5.5, 101.9032, labels = "Intercept (A)", pos = 4)
 text(10, 125, labels = "Y = A + BX", cex = 2)
 ```
 
-## Estimated regression model {.small}
+<!--
+As you have probably studied in your high school algebra class, the
+mathematical expression for a straight line is Y equals A plus B X. For each
+point on the straight-line, Y is the value of its location on the vertical
+scale, and X is the value on the horizontal axis. 'A' and B are parameters that
+define the straight line. B indicates the slope of the straight-line, which
+means, on the straight line, if the value of X increases by one, then the value
+of Y increases by B.  'A' is called the intercept or the Y intercept, which
+means that the diagonal line crosses with the Y axis at 'A'.  In other words,
+on the diagonal line, if X equals zero, then Y equals 'A'.
+-->
+
+## Estimated regression model {.smaller}
 
 $\hat{Y} = 101.9 + 0.393 X$
 
@@ -91,3 +154,46 @@ Short way: 0.393 x **30** = 11.79
 Long way: (101.9 + 0.393 x **70**) – (101.9 + 0.393 x **40**) =
 129.45 - 117.64 = 11.8
 
+<!--
+The parameters of the straight line equation were estimated for systolic blood
+pressure as Y, and age as X, with the N-hanes data. The parameter A was
+estimated to be 101 point 9, and the parameter B, the slope, was estimated to
+be 0.393. The term on the left hand side is Y-hat, instead of Y, in order to
+clearly distinguish observed values of systolic blood pressure, Y, and their
+predicted values, Y-hat.  What does 101.9 mean? It may look like systolic blood
+pressure of new born babies, because if X equals zero, then Y equals 101 point
+9. But the regression model was estimated using data for those aged 18 to 80.
+If persons aged under 18 follow the pattern observed for those aged 18 to 80,
+101 point 9 may be considered as a predicted systolic blood pressure for age 0.
+But the age pattern of blood pressure under age 18 may be quite different from
+the pattern for those aged 18 to 80. So, 101 point 9 is considered to be a
+hypothetical value of systolic blood pressure at age 0, obtained by
+extrapolating the straight line fitted to data for age 18 to 80, to age 0.
+0.393 is the slope of the straight line. According to the estimated model, if X
+increases by one, then Y-hat increases by 0.393. So it can be considered that
+in this data, on average, a difference in systolic blood pressure by 0.393
+mmHg, millimeter of mercury, corresponds to a one-year difference in age. “On
+average” in this sentence does not exactly mean the arithmetic mean, but means
+a representative value, or a typical value, and there is some mathematical
+reason for considering the value as representative of different values in the
+data.  Let’s play a little with these numbers.  What is the value of systolic
+blood pressure for someone aged 45? Suppose someone is aged 45, and we predict
+systolic blood pressure of the person based on her or his age only. Then,
+according to this regression model, it is 101 point 9 plus 0.393 times 45,
+which is 119.6, or about 120.  What is the difference in systolic blood
+pressure between two persons whose ages are 30 years apart, like age 70 and age
+40?  According to this equation, their typical difference is 0.393 times 30
+which equals 15.3 mmHg. Or we can get the predicted values for age 70 and age
+40, for example, and then compute their difference.
+-->
+
+## Recap
+
+* Simple Linear Regression
+* Effect of age on systolic blood pressure using NHANES data
+
+<!--
+We reviewed simple linear regression between two varibles, namely systolic
+blood pressure and age. We saw that the relationship is fairly linear and we
+could use a linear model to explain the relationship.
+-->
